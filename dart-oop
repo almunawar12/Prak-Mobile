@@ -1,0 +1,51 @@
+import 'dart:async';
+
+void main() async {
+  // TODO : Buat variable untuk memanggil fetchAnonymous() dengan parameter
+  // berisi identitas masing-masing
+  final Map<String, dynamic> anonymousData = {
+    'nim': '123456',
+    'username': 'johndoe',
+    'email': 'johndoe@example.com',
+  };
+  final Future<Map<String, dynamic>> Function() fetchAnonymous = () async => anonymousData;
+
+  // TODO : buat variablle yang memanggil method factory fromMap agar bisa 
+  // membuat object User dari variable diatas
+  final Map<String, dynamic> userData = await fetchAnonymous();
+  final User user = User.fromMap(userData);
+
+  // TODO : Panggil method printName & printEmail dari objek yang sudah dibuat
+  await user.printName();
+  await user.printEmail();
+}
+
+// TODO : Ubah menjadi function Future & tambahkan parameter
+Future<Map<String, dynamic>> fetchAnonymous(Map<String, String> identities) async => {
+      'id': identities['nim'],
+      'username': identities['username'],
+      'email': identities['email'],
+    };
+
+abstract class UserGlobal {
+  Future<void> printName();
+  Future<void> printEmail();
+}
+
+// TODO : Buatlah class User menjadi turunan dari abstrack class UserGlobal
+class User extends UserGlobal {
+  String? id;
+  String? username;
+  String? email;
+
+  String? _lastSeen;
+
+  // TODO : Buatlah Constructor untuk class User dan gunakan named parameter
+  User({this.id, this.username, this.email});
+
+  // TODO : Buatlah getter untuk property _lastseen
+  String? get lastSeen => _lastSeen;
+
+  set setLastSeen(String newValue) {
+    // TODO : Buatlah setter untuk property _lastseen
+    _lastSeen = newValue;
